@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EC2 Server Info</title>
+</head>
+<body>
+  <h1>EC2 Server Information</h1>
+  <p>Host name: <span id="hostname"></span></p>
+  <p>IP address: <span id="ip-address"></span></p>
+
+  <script>
+    fetch('/')
+      .then(response => response.text())
+      .then(data => {
+        const hostnameElement = document.getElementById('hostname');
+        const ipAddressElement = document.getElementById('ip-address');
+
+        const lines = data.split('\n');
+        hostnameElement.textContent = lines[1].split(': ')[1];
+        ipAddressElement.textContent = lines[2].split(': ')[1];
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
